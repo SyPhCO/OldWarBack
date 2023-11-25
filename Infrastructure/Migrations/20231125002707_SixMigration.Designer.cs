@@ -4,6 +4,7 @@ using Infrastructure.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Infrastructure.Migrations
 {
     [DbContext(typeof(Context))]
-    partial class ContextModelSnapshot : ModelSnapshot
+    [Migration("20231125002707_SixMigration")]
+    partial class SixMigration
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -888,25 +890,25 @@ namespace Infrastructure.Migrations
             modelBuilder.Entity("Domain.Concrete.Unit", b =>
                 {
                     b.HasOne("Domain.Concrete.Category", "Category")
-                        .WithMany()
+                        .WithMany("Units")
                         .HasForeignKey("CategoryId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.HasOne("Domain.Concrete.Country", "Country")
-                        .WithMany()
+                        .WithMany("Units")
                         .HasForeignKey("CountryId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.HasOne("Domain.Concrete.Faction", "Faction")
-                        .WithMany()
+                        .WithMany("Units")
                         .HasForeignKey("FactionId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.HasOne("Domain.Concrete.Rank", "Rank")
-                        .WithMany()
+                        .WithMany("Units")
                         .HasForeignKey("RankId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
@@ -1011,21 +1013,35 @@ namespace Infrastructure.Migrations
                     b.Navigation("Faction_ByHours");
                 });
 
+            modelBuilder.Entity("Domain.Concrete.Category", b =>
+                {
+                    b.Navigation("Units");
+                });
+
             modelBuilder.Entity("Domain.Concrete.Country", b =>
                 {
                     b.Navigation("Country_Alliances");
 
                     b.Navigation("Country_Battles");
+
+                    b.Navigation("Units");
                 });
 
             modelBuilder.Entity("Domain.Concrete.Faction", b =>
                 {
                     b.Navigation("Faction_ByHours");
+
+                    b.Navigation("Units");
                 });
 
             modelBuilder.Entity("Domain.Concrete.GlobalWar", b =>
                 {
                     b.Navigation("Battles");
+                });
+
+            modelBuilder.Entity("Domain.Concrete.Rank", b =>
+                {
+                    b.Navigation("Units");
                 });
 
             modelBuilder.Entity("Domain.Concrete.Unit", b =>

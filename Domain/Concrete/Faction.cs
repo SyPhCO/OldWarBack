@@ -1,22 +1,29 @@
 ﻿using Domain.Abstract;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Runtime.Serialization;
 
 namespace Domain.Concrete
 {
+    [DataContract]
     public class Faction : Identity
     {
+        [DataMember]
         public string Name { get; set; }
+
+        [DataMember]
         public string Description { get; set; }
+
+        [DataMember]
         public string Flag { get; set; }
+
+        [DataMember]
         public string Chief { get; set; }
-        public List<Faction> Faction_Categories { get; set; }
+
+        [DataMember]
+        public ICollection<Faction_ByHour> Faction_ByHours { get; set; }
+
         public Faction()
         {
-            Faction_Categories = new();
+            Faction_ByHours = new HashSet<Faction_ByHour>();
         }
     }
 }

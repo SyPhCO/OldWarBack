@@ -1,4 +1,5 @@
-﻿using Domain.Concrete;
+﻿using Domain.Body;
+using Domain.Concrete;
 using Infrastructure.Repository;
 using Microsoft.AspNetCore.Mvc;
 
@@ -9,38 +10,43 @@ namespace OldWarBack.Controllers
     public class UnitController : Controller
     {
         #region field
-        private readonly Repository<Unit> _repository;
+        private readonly UnitRepository _repository;
         #endregion
 
         #region Constructor
-        public UnitController(Repository<Unit> repository)
+        public UnitController(UnitRepository repository)
         {
             _repository = repository;
         }
         #endregion
 
         [HttpGet]
+        [Route("GetAll")]
         public async Task<IEnumerable<Unit>> GetAll()
         {
             return await _repository.GetAllAsync();
         }
 
         [HttpPost]
-        public async Task<IEnumerable<Unit>> GetAll_1()
+        [Route("Create")]
+        public async Task Create([FromBody] UnitBody unit)
         {
-            return await _repository.GetAllAsync();
+
+            await _repository.AddAsync(new Unit(unit));
         }
 
         [HttpPut]
-        public async Task<IEnumerable<Unit>> GetAll_2()
+        [Route("Update")]
+        public void Update([FromBody] Unit unit)
         {
-            return await _repository.GetAllAsync();
+            _repository.Update(unit);
         }
 
         [HttpDelete]
-        public async Task<IEnumerable<Unit>> GetAll_3()
+        [Route("Delete")]
+        public void Delete([FromBody] Unit unit)
         {
-            return await _repository.GetAllAsync();
+            _repository.Remove(unit);
         }
     }
 }

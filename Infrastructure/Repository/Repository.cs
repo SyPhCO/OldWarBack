@@ -10,7 +10,7 @@ namespace Infrastructure.Repository
     public class Repository<TEntity> : IRepository<TEntity> where TEntity : class, InterfaceIdentity
     {
         #region field
-        private readonly Context _context;
+        protected readonly Context _context;
         #endregion
 
         #region Constructor

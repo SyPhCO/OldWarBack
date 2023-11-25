@@ -4,6 +4,7 @@ using Infrastructure.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Infrastructure.Migrations
 {
     [DbContext(typeof(Context))]
-    partial class ContextModelSnapshot : ModelSnapshot
+    [Migration("20231124213442_FourMigration")]
+    partial class FourMigration
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -64,6 +66,43 @@ namespace Infrastructure.Migrations
                     b.ToTable("Alliance");
                 });
 
+            modelBuilder.Entity("Domain.Concrete.Alliance_Country", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"), 1L, 1);
+
+                    b.Property<long>("AllianceId")
+                        .HasColumnType("bigint");
+
+                    b.Property<long>("CountryId")
+                        .HasColumnType("bigint");
+
+                    b.Property<DateTime>("DateCreation")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime>("DateModification")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("UserCreation")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("UserModification")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("AllianceId");
+
+                    b.HasIndex("CountryId");
+
+                    b.ToTable("Alliance_Country");
+                });
+
             modelBuilder.Entity("Domain.Concrete.Battle", b =>
                 {
                     b.Property<long>("Id")
@@ -88,9 +127,6 @@ namespace Infrastructure.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<long>("GlobalWarId")
-                        .HasColumnType("bigint");
-
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -105,46 +141,7 @@ namespace Infrastructure.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("GlobalWarId");
-
                     b.ToTable("Battle");
-                });
-
-            modelBuilder.Entity("Domain.Concrete.Battle_ByHour", b =>
-                {
-                    b.Property<long>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"), 1L, 1);
-
-                    b.Property<long>("BattleId")
-                        .HasColumnType("bigint");
-
-                    b.Property<long>("ByHourId")
-                        .HasColumnType("bigint");
-
-                    b.Property<DateTime>("DateCreation")
-                        .HasColumnType("datetime2");
-
-                    b.Property<DateTime>("DateModification")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("UserCreation")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("UserModification")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("BattleId");
-
-                    b.HasIndex("ByHourId");
-
-                    b.ToTable("Battle_ByHour");
                 });
 
             modelBuilder.Entity("Domain.Concrete.ByHour", b =>
@@ -271,80 +268,6 @@ namespace Infrastructure.Migrations
                     b.ToTable("Country");
                 });
 
-            modelBuilder.Entity("Domain.Concrete.Country_Alliance", b =>
-                {
-                    b.Property<long>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"), 1L, 1);
-
-                    b.Property<long>("AllianceId")
-                        .HasColumnType("bigint");
-
-                    b.Property<long>("CountryId")
-                        .HasColumnType("bigint");
-
-                    b.Property<DateTime>("DateCreation")
-                        .HasColumnType("datetime2");
-
-                    b.Property<DateTime>("DateModification")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("UserCreation")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("UserModification")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("AllianceId");
-
-                    b.HasIndex("CountryId");
-
-                    b.ToTable("Country_Alliance");
-                });
-
-            modelBuilder.Entity("Domain.Concrete.Country_Battle", b =>
-                {
-                    b.Property<long>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"), 1L, 1);
-
-                    b.Property<long>("BattleId")
-                        .HasColumnType("bigint");
-
-                    b.Property<long>("CountryId")
-                        .HasColumnType("bigint");
-
-                    b.Property<DateTime>("DateCreation")
-                        .HasColumnType("datetime2");
-
-                    b.Property<DateTime>("DateModification")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("UserCreation")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("UserModification")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("BattleId");
-
-                    b.HasIndex("CountryId");
-
-                    b.ToTable("Country_Battle");
-                });
-
             modelBuilder.Entity("Domain.Concrete.Faction", b =>
                 {
                     b.Property<long>("Id")
@@ -386,43 +309,6 @@ namespace Infrastructure.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Faction");
-                });
-
-            modelBuilder.Entity("Domain.Concrete.Faction_ByHour", b =>
-                {
-                    b.Property<long>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"), 1L, 1);
-
-                    b.Property<long>("ByHourId")
-                        .HasColumnType("bigint");
-
-                    b.Property<DateTime>("DateCreation")
-                        .HasColumnType("datetime2");
-
-                    b.Property<DateTime>("DateModification")
-                        .HasColumnType("datetime2");
-
-                    b.Property<long>("FactionId")
-                        .HasColumnType("bigint");
-
-                    b.Property<string>("UserCreation")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("UserModification")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("ByHourId");
-
-                    b.HasIndex("FactionId");
-
-                    b.ToTable("Faction_ByHour");
                 });
 
             modelBuilder.Entity("Domain.Concrete.GlobalWar", b =>
@@ -499,7 +385,7 @@ namespace Infrastructure.Migrations
                     b.ToTable("Rank");
                 });
 
-            modelBuilder.Entity("Domain.Concrete.Unit", b =>
+            modelBuilder.Entity("Domain.Concrete.Rank_Category", b =>
                 {
                     b.Property<long>("Id")
                         .ValueGeneratedOnAdd()
@@ -510,75 +396,14 @@ namespace Infrastructure.Migrations
                     b.Property<long>("CategoryId")
                         .HasColumnType("bigint");
 
-                    b.Property<string>("ChargeMusic")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<long>("CountryId")
-                        .HasColumnType("bigint");
-
                     b.Property<DateTime>("DateCreation")
                         .HasColumnType("datetime2");
 
                     b.Property<DateTime>("DateModification")
                         .HasColumnType("datetime2");
-
-                    b.Property<string>("Description")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<long>("FactionId")
-                        .HasColumnType("bigint");
-
-                    b.Property<string>("Firstname")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Lastname")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
 
                     b.Property<long>("RankId")
                         .HasColumnType("bigint");
-
-                    b.Property<string>("UserCreation")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("UserModification")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("CategoryId");
-
-                    b.HasIndex("CountryId");
-
-                    b.HasIndex("FactionId");
-
-                    b.HasIndex("RankId");
-
-                    b.ToTable("Unit");
-                });
-
-            modelBuilder.Entity("Domain.Concrete.Unit_Battle", b =>
-                {
-                    b.Property<long>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"), 1L, 1);
-
-                    b.Property<long>("BattleId")
-                        .HasColumnType("bigint");
-
-                    b.Property<DateTime>("DateCreation")
-                        .HasColumnType("datetime2");
-
-                    b.Property<DateTime>("DateModification")
-                        .HasColumnType("datetime2");
 
                     b.Property<long>("UnitId")
                         .HasColumnType("bigint");
@@ -593,11 +418,58 @@ namespace Infrastructure.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("BattleId");
+                    b.HasIndex("CategoryId");
 
-                    b.HasIndex("UnitId");
+                    b.HasIndex("RankId");
 
-                    b.ToTable("Unit_Battle");
+                    b.HasIndex("UnitId")
+                        .IsUnique();
+
+                    b.ToTable("Rank_Category");
+                });
+
+            modelBuilder.Entity("Domain.Concrete.Unit", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"), 1L, 1);
+
+                    b.Property<string>("ChargeMusic")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("DateCreation")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime>("DateModification")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Firstname")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Lastname")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("UserCreation")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("UserModification")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Unit");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
@@ -798,46 +670,16 @@ namespace Infrastructure.Migrations
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
-            modelBuilder.Entity("Domain.Concrete.Battle", b =>
-                {
-                    b.HasOne("Domain.Concrete.GlobalWar", "GlobalWar")
-                        .WithMany("Battles")
-                        .HasForeignKey("GlobalWarId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
-                    b.Navigation("GlobalWar");
-                });
-
-            modelBuilder.Entity("Domain.Concrete.Battle_ByHour", b =>
-                {
-                    b.HasOne("Domain.Concrete.Battle", "Battle")
-                        .WithMany("Battle_ByHours")
-                        .HasForeignKey("BattleId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
-                    b.HasOne("Domain.Concrete.ByHour", "ByHour")
-                        .WithMany("Battle_ByHours")
-                        .HasForeignKey("ByHourId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
-                    b.Navigation("Battle");
-
-                    b.Navigation("ByHour");
-                });
-
-            modelBuilder.Entity("Domain.Concrete.Country_Alliance", b =>
+            modelBuilder.Entity("Domain.Concrete.Alliance_Country", b =>
                 {
                     b.HasOne("Domain.Concrete.Alliance", "Alliance")
-                        .WithMany("Country_Alliances")
+                        .WithMany()
                         .HasForeignKey("AllianceId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.HasOne("Domain.Concrete.Country", "Country")
-                        .WithMany("Country_Alliances")
+                        .WithMany()
                         .HasForeignKey("CountryId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
@@ -847,94 +689,29 @@ namespace Infrastructure.Migrations
                     b.Navigation("Country");
                 });
 
-            modelBuilder.Entity("Domain.Concrete.Country_Battle", b =>
-                {
-                    b.HasOne("Domain.Concrete.Battle", "Battle")
-                        .WithMany("Country_Battles")
-                        .HasForeignKey("BattleId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
-                    b.HasOne("Domain.Concrete.Country", "Country")
-                        .WithMany("Country_Battles")
-                        .HasForeignKey("CountryId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
-                    b.Navigation("Battle");
-
-                    b.Navigation("Country");
-                });
-
-            modelBuilder.Entity("Domain.Concrete.Faction_ByHour", b =>
-                {
-                    b.HasOne("Domain.Concrete.ByHour", "ByHour")
-                        .WithMany("Faction_ByHours")
-                        .HasForeignKey("ByHourId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
-                    b.HasOne("Domain.Concrete.Faction", "Faction")
-                        .WithMany("Faction_ByHours")
-                        .HasForeignKey("FactionId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
-                    b.Navigation("ByHour");
-
-                    b.Navigation("Faction");
-                });
-
-            modelBuilder.Entity("Domain.Concrete.Unit", b =>
+            modelBuilder.Entity("Domain.Concrete.Rank_Category", b =>
                 {
                     b.HasOne("Domain.Concrete.Category", "Category")
-                        .WithMany()
+                        .WithMany("Ranks_Category")
                         .HasForeignKey("CategoryId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
-                    b.HasOne("Domain.Concrete.Country", "Country")
-                        .WithMany()
-                        .HasForeignKey("CountryId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
-                    b.HasOne("Domain.Concrete.Faction", "Faction")
-                        .WithMany()
-                        .HasForeignKey("FactionId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
                     b.HasOne("Domain.Concrete.Rank", "Rank")
-                        .WithMany()
+                        .WithMany("Rank_Categories")
                         .HasForeignKey("RankId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("Domain.Concrete.Unit", "Unit")
+                        .WithOne("rank_Category")
+                        .HasForeignKey("Domain.Concrete.Rank_Category", "UnitId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.Navigation("Category");
 
-                    b.Navigation("Country");
-
-                    b.Navigation("Faction");
-
                     b.Navigation("Rank");
-                });
-
-            modelBuilder.Entity("Domain.Concrete.Unit_Battle", b =>
-                {
-                    b.HasOne("Domain.Concrete.Battle", "Battle")
-                        .WithMany("Unit_Battles")
-                        .HasForeignKey("BattleId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
-                    b.HasOne("Domain.Concrete.Unit", "Unit")
-                        .WithMany("Unit_Battle")
-                        .HasForeignKey("UnitId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
-                    b.Navigation("Battle");
 
                     b.Navigation("Unit");
                 });
@@ -990,47 +767,20 @@ namespace Infrastructure.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("Domain.Concrete.Alliance", b =>
+            modelBuilder.Entity("Domain.Concrete.Category", b =>
                 {
-                    b.Navigation("Country_Alliances");
+                    b.Navigation("Ranks_Category");
                 });
 
-            modelBuilder.Entity("Domain.Concrete.Battle", b =>
+            modelBuilder.Entity("Domain.Concrete.Rank", b =>
                 {
-                    b.Navigation("Battle_ByHours");
-
-                    b.Navigation("Country_Battles");
-
-                    b.Navigation("Unit_Battles");
-                });
-
-            modelBuilder.Entity("Domain.Concrete.ByHour", b =>
-                {
-                    b.Navigation("Battle_ByHours");
-
-                    b.Navigation("Faction_ByHours");
-                });
-
-            modelBuilder.Entity("Domain.Concrete.Country", b =>
-                {
-                    b.Navigation("Country_Alliances");
-
-                    b.Navigation("Country_Battles");
-                });
-
-            modelBuilder.Entity("Domain.Concrete.Faction", b =>
-                {
-                    b.Navigation("Faction_ByHours");
-                });
-
-            modelBuilder.Entity("Domain.Concrete.GlobalWar", b =>
-                {
-                    b.Navigation("Battles");
+                    b.Navigation("Rank_Categories");
                 });
 
             modelBuilder.Entity("Domain.Concrete.Unit", b =>
                 {
-                    b.Navigation("Unit_Battle");
+                    b.Navigation("rank_Category")
+                        .IsRequired();
                 });
 #pragma warning restore 612, 618
         }

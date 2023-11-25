@@ -1,21 +1,29 @@
 ﻿using Domain.Abstract;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Runtime.Serialization;
 
 namespace Domain.Concrete
 {
+    [DataContract]
     public class Alliance : Identity
     {
+        [DataMember]
         public string Name { get; set; }
+
+        [DataMember]
         public string Description { get; set; }
+
+        [DataMember]
         public int TotalAllianceSoldier { get; set; }
+
+        [DataMember]
         public string Flag { get; set; }
-        public List<Alliance> Alliance_Categories { get; set; }
-        public Alliance() {
-            Alliance_Categories = new();
+
+        [DataMember]
+        public ICollection<Country_Alliance> Country_Alliances { get; set; }
+
+        public Alliance()
+        {
+            Country_Alliances = new HashSet<Country_Alliance>();
         }
     }
 }

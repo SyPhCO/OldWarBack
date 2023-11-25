@@ -26,15 +26,19 @@ namespace Infrastructure.Data
 
         public DbSet<Rank> Rank { get; set; }
         public DbSet<Category> Category { get; set; }
-        public DbSet<Rank_Category> Rank_Category { get; set; }
         public DbSet<Battle> Battle { get; set; }
         public DbSet<Alliance> Alliance { get; set; }
-        public DbSet<Alliance_Country> Alliance_Country { get; set; }
         public DbSet<Country> Country { get; set; }
         public DbSet<Unit> Unit { get; set; }
         public DbSet<GlobalWar> GlobalWar { get; set; }
         public DbSet<Faction> Faction { get; set; }
         public DbSet<ByHour> ByHour { get; set; }
+
+        public DbSet<Unit_Battle> Unit_Battle { get; set; }
+        public DbSet<Country_Battle> Country_Battle { get; set; }
+        public DbSet<Country_Alliance> Country_Alliance { get; set; }
+        public DbSet<Battle_ByHour> Battle_ByHour { get; set; }
+        public DbSet<Faction_ByHour> Faction_ByHour { get; set; }
 
 
 

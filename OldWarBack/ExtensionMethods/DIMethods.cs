@@ -14,12 +14,10 @@ namespace OldWarBack.ExtensionMethods
         {
             services.AddScoped<Repository<Rank>, RankRepository>();
             services.AddScoped<Repository<Category>, CategoryRepository>();
-            services.AddScoped<Repository<Rank_Category>, Rank_CategoryRepository>();
             services.AddScoped<Repository<Battle>, BattleRepository>();
             services.AddScoped<Repository<Country>, CountryRepository>();
             services.AddScoped<Repository<Alliance>, AllianceRepository>();
-            services.AddScoped<Repository<Alliance_Country>, Alliance_CountryRepository>();
-            services.AddScoped<Repository<Unit>, UnitRepository>();
+            services.AddScoped<UnitRepository>();
             services.AddScoped<Repository<GlobalWar>, GlobalWarRepository>();
             services.AddScoped<Repository<Faction>, FactionRepository>();
             services.AddScoped<Repository<ByHour>, ByHourRepository>();
